@@ -38,16 +38,26 @@ function bdev:get_hard_disk()
 	return self.hard_disk
 end
 
+function bdev:get_max_slots()
+	return 3
+	--[[local count = 0
+	for i, cap in ipairs(self.os.hwdef.hw_capabilities) do
+		count = count + self.os.hwdef.hw_capabilities
+	end
+	return count]]
+end
+
 -- Get Removable disk if exists
 function bdev:get_removable_disk(removable_type)
 	if self.removable_disk == nil then
 		local data = { bdev = self }
 		data.inv = self.os.meta:get_inventory()
-		data.inv:set_size("main", 1) -- 1 disk supported
+		max_slots = self.get_max_slots()
+		data.inv:set_size("main", max_slots)
 		function data:reload(stack)
 			-- self.inv unchanged
 			-- self.rtype unchanged (assumption
-			stack = stack or data.inv:get_stack("main", 1)
+			stack = stack or data.inv:get_stack("main", max_slots)
 			if stack then
 				local def = stack:get_definition()
 				if def and def.name ~= "" then
@@ -176,7 +186,7 @@ function bdev:sync()
 				self.removable_disk.meta:set_string("os_storage", minetest.serialize(self.removable_disk.storage))
 			end
 		end
-		self.removable_disk.inv:set_stack("main", 1, self.removable_disk.stack)
+		self.removable_disk.inv:set_stack("main", self.get_max_slots(), self.removable_disk.stack)
 	end
 
 	-- Modmeta (Cloud)

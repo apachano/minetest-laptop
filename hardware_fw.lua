@@ -210,7 +210,7 @@ function laptop.register_hardware(name, hwdef)
 		end
 
 		-- Defaults
-		merged_hwdef.hw_capabilities =  merged_hwdef.hw_capabilities or {"hdd", "floppy", "usb", "net", "liveboot"}
+		merged_hwdef.hw_capabilities =  merged_hwdef.hw_capabilities or {hdd = 1, floppy = 2, usb = 1, net = true, liveboot = { "floppy", "usb", "hdd" }}
 		laptop.node_config[nodename] = merged_hwdef
 	end
 end

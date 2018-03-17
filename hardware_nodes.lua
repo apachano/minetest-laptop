@@ -3,7 +3,7 @@ laptop.register_hardware("laptop:core", {
 	infotext = 'CP Core',
 	sequence = { "closed", "open", "open_on" },
 	custom_theme = "Red",
-	hw_capabilities = { 'hdd', 'usb', 'net' },
+	hw_capabilities = { hdd = 1, floppy = 2, usb = 1, net = true, liveboot = { "floppy", "usb", "hdd" } },
 	node_defs = {
 		["open"] = {
 			hw_state = "power_off",
@@ -79,7 +79,7 @@ minetest.register_craft({
 	{'laptop:bat', 'laptop:case', 'dye:red', },
 	}
 })
-
+--[[
 laptop.register_hardware("laptop:printer", {
 	description = "Flash Printex",
 	infotext = 'Flash Printex',
@@ -533,4 +533,4 @@ minetest.register_alias("laptop:monitor3_on", "laptop:kodiak_1000_on")
 
 minetest.register_alias("laptop:laptop_closed", "laptop:portable_workstation_2_closed")
 minetest.register_alias("laptop:laptop_open", "laptop:portable_workstation_2_open")
-minetest.register_alias("laptop:laptop_open_on", "laptop:portable_workstation_2_open_on")
+minetest.register_alias("laptop:laptop_open_on", "laptop:portable_workstation_2_open_on")]]
